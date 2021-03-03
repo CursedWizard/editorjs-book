@@ -1,0 +1,122 @@
+{
+  "chapterDir": "/mnt/progs/dev/web/sw/editor-js-book/backend/chapters",
+  "lessons": [
+    {
+      "title": "Heh",
+      "price": 0,
+      "extended": true,
+      "subLessons": [
+        {
+          "title": "Tuta-1",
+          "link": "",
+          "done": false,
+          "locked": false
+        },
+        {
+          "title": "Tuta-2",
+          "link": "",
+          "done": false,
+          "locked": false
+        },
+        {
+          "title": "Tuta-3",
+          "link": "",
+          "done": false,
+          "locked": false
+        }
+      ]
+    },
+    {
+      "title": "Loh",
+      "price": 0,
+      "extended": true,
+      "subLessons": [
+        {
+          "title": "Tuta-1",
+          "link": "",
+          "done": false,
+          "locked": false
+        },
+        {
+          "title": "Tuta-2",
+          "link": "",
+          "done": false,
+          "locked": false
+        },
+        {
+          "title": "Tuta-3",
+          "link": "",
+          "done": false,
+          "locked": false
+        },
+        {
+          "title": "Tuta-4",
+          "link": "",
+          "done": false,
+          "locked": false
+        }
+      ]
+    },
+    {
+      "title": "Test",
+      "price": 0,
+      "extended": false,
+      "subLessons": [
+        {
+          "title": "test-1",
+          "link": "",
+          "done": false,
+          "locked": false
+        },
+        {
+          "title": "test-2",
+          "link": "",
+          "done": false,
+          "locked": false
+        },
+        {
+          "title": "test-3",
+          "link": "",
+          "done": false,
+          "locked": false
+        },
+        {
+          "title": "test-4",
+          "link": "",
+          "done": false,
+          "locked": false
+        },
+        {
+          "title": "test-5",
+          "link": "",
+          "done": false,
+          "locked": false
+        },
+        {
+          "title": "test-6",
+          "link": "",
+          "done": false,
+          "locked": false
+        },
+        {
+          "title": "test-7",
+          "link": "",
+          "done": false,
+          "locked": false
+        }
+      ]
+    },
+    {
+      "title": "Введение в матанализ",
+      "price": 0,
+      "extended": false,
+      "subLessons": []
+    },
+    {
+      "title": "Тостер",
+      "price": 0,
+      "extended": false,
+      "subLessons": []
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+/**
+ * Common scss module
+ *
+ * @author: exode <info@exode.ru>
+ */
+
+*, ::before, ::after {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  outline: none !important;
+  box-sizing: initial !important;
+}
