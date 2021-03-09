@@ -61,8 +61,15 @@ class LessonItem extends React.Component<Props & LessonWrapperProps> {
               <h5>{`${this.props.indexNumber}`}.</h5>
               <h5>{this.props.title}</h5>
             </LessonTitle>
-            <Button onClick={this.handleButtonClick} borderRadius="999px" pb="1px" width="1.3em" height="1.3em" variant="neutral">
-              +
+            <Button 
+                style={{
+                  transform: this.props.extended ? "rotate(45deg)" : "rotate(0deg)",
+                  transition: "all 0.2s ease-in-out"
+                }}
+              onClick={this.handleButtonClick} borderRadius="999px" pb="1px" width="1.4em" height="1.4em" variant="neutral">
+
+              <div 
+              >+</div>
             </Button>
           </LessonTitleWrapper>
 

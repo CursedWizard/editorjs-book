@@ -145,7 +145,7 @@ export const SubLessonWrapper = styled.div<SubLessonWrapperTypes>`
 export const SubLessonText = styled.div`
 	font-weight: 400;
 	flex: 0 1 auto;
-	margin-left: 20px;
+	margin-left: 10px;
 	margin-top: 0.2em;
 	text-decoration: none;
 	overflow: hidden;

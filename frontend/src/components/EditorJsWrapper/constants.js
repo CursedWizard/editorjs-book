@@ -15,9 +15,9 @@ import CheckList from "@editorjs/checklist";
 import Delimiter from "@editorjs/delimiter";
 import InlineCode from "@editorjs/inline-code";
 import InlineImage from 'editorjs-inline-image';
+import Carousel from 'carousel-editorjs/dist/bundle.js';
 const CodeBox = require('@bomdi/codebox');
 const ColorPlugin = require('editorjs-text-color-plugin');
-// const SimpleImage = require('simple-image-editorjs');
 
 export const EDITOR_JS_TOOLS = {
   // embed: Embed,
@@ -26,24 +26,40 @@ export const EDITOR_JS_TOOLS = {
  Color: {
       class: ColorPlugin, // if load from CDN, please try: window.ColorPlugin
       config: {
-         colorCollections: ['#FF1300','#EC7878','#9C27B0','#673AB7','#3F51B5','#0070FF','#03A9F4','#00BCD4','#4CAF50','#8BC34A','#CDDC39', '#FFF', '#000'],
-         defaultColor: '#FF1300',
+         colorCollections: ['#D68B45', '#45BCD6', '#FFF', '#000'],
+         defaultColor: '#000',
          type: 'text', 
       }     
     },
   list: List,
   alert: Alert,
+  carousel: {
+    class: Carousel,
+    config: {
+      endpoints: {
+        byFile: "http://localhost:3000/testFile",
+      }
+    }
+  },
   // warning: Warning,
   // code: Code,
   // linkTool: LinkTool,
-  image: SimpleImage,
+  image: {
+    class: Image,
+    config: {
+      endpoints: {
+        byFile: 'http://localhost:3000/testFile', // Your backend file uploader endpoint
+        byUrl: 'http://localhost:8008/fetchUrl', // Your endpoint that provides uploading by Url
+      }
+    }
+  },
   // raw: Raw,
   header: Header,
   codeBox: {
       class: CodeBox,
       config: {
-        themeURL: 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/atom-one-light.min.css', // Optional
-        themeName: 'atom-one-dark', // Optional
+        themeURL: 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/nord.min.css', // Optional
+        themeName: 'nord', // Optional
         useDefaultTheme: 'light' // Optional. This also determines the background color of the language select drop-down
       }
     },

@@ -35,6 +35,10 @@ class ChaptersManager {
     return data;
   }
 
+  syncFrontendTable(table: any) {
+    return this.chObj = table;
+  }
+
   getChapterObject() {
     return this.chObj;
   }
@@ -131,16 +135,16 @@ class ChaptersManager {
       }
     }
 
-    fs.writeFile(
-      path.resolve() + "/info.json",
-      JSON.stringify(this.chObj, null, 2),
-      (err) => {
-        if (err) {
-          console.error(err);
-          return;
-        }
-      }
-    );
+    // fs.writeFile(
+    //   path.resolve() + "/info.json",
+    //   JSON.stringify(this.chObj, null, 2),
+    //   (err) => {
+    //     if (err) {
+    //       console.error(err);
+    //       return;
+    //     }
+    //   }
+    // );
 
   }
 
@@ -149,6 +153,14 @@ class ChaptersManager {
       const test = key.split("/");
       this.__updateLessonContentInFile(test[0], test[1], value);
     });
+
+    console.log("See before writing")
+    console.log(this.chObj)
+    // writing table to info.json
+    fs.writeFileSync(
+      path.resolve() + "/info.json",
+      JSON.stringify(this.chObj, null, 2),
+    );
   }
 
   private updateChapterTable(chapterName: string) {
@@ -240,13 +252,14 @@ class ChaptersManager {
       console.log(`File name ${lessonName} already exists. Aborting...`)
       return;
     }
+    this.updateLessonContent(chapterName, lessonName, getEmptyLesson(lessonName));
 
-    fs.writeFile(lessonFullName, getEmptyLesson(lessonName), (err) => {
-      if (err) {
-        console.error(err);
-        return;
-      }
-    });
+    // fs.writeFile(lessonFullName, getEmptyLesson(lessonName), (err) => {
+    //   if (err) {
+    //     console.error(err);
+    //     return;
+    //   }
+    // });
 
     this.updateLessonTable(chapterName, lessonName);
   }

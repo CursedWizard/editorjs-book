@@ -46,6 +46,8 @@ async function getCourseInfo()
     const result: CoursesType = await (
       await fetch("http://localhost:3000/getShit", requestOptions)
     ).json();
+    if (!result.lessons)
+      result.lessons = [];
 
     console.log(result)
 

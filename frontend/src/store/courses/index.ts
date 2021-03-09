@@ -26,19 +26,32 @@ class CoursesStore {
     console.log(this.currentChapterName)
   }
 
+  enableReadOnly() {
+    const matches = document.querySelectorAll("input");
+    matches.forEach(el => el.remove());
+    const _matches = document.querySelectorAll(".cdxcarousel-removeBtn");
+    _matches.forEach(el => el.remove());
+    const __matches = document.querySelectorAll(".cdxcarousel-item");
+    __matches.forEach(el => (el as any).style["height"] = "200px")
+    const carousel_add_image = document.querySelectorAll(".cdxcarousel-addImage");
+    carousel_add_image.forEach(el => el.remove());
+  }
+
   disableKatexPreviw() {
     this.selectLesson(this.currentChapterName, this.currentLessonName);
   }
 
   enableKatexPreview() {
     this.updateContent = false;
+    // this.enableReadOnly();
     let editable_elements = document.querySelectorAll("[contenteditable=true]");
     editable_elements.forEach(el => el.removeAttribute("contenteditable"))
 
-    let icon_settings = document.querySelectorAll('.ce-toolbar__settings-btn');
-    icon_settings.forEach(el => el.remove());
+    // let icon_settings = document.querySelectorAll('.ce-toolbar__settings-btn');
+    // icon_settings.forEach(el => el.remove());
 
     renderMathInElement(document.body, {
+      trust: true,
       delimiters: [
         { left: "$$", right: "$$", display: true },
         { left: "\\[", right: "\\]", display: true },
@@ -126,7 +139,7 @@ class CoursesStore {
   }
 
   async syncronizeShit() {
-    await fetch(`http://localhost:3000/sync`, {
+    await fetch(`http://localhost:3000/syncTable`, {
       method: "POST", // or 'PUT'
       mode: "cors",
       headers: {
@@ -137,6 +150,7 @@ class CoursesStore {
   }
 
   async createChapter(chapterName: string) {
+    this.syncronizeShit();
     await fetch(`http://localhost:3000/createChapter`, {
       method: "POST", // or 'PUT'
       mode: "cors",
@@ -152,6 +166,7 @@ class CoursesStore {
   }
 
   async createLesson(lessonName: string) {
+    this.syncronizeShit();
     await fetch(`http://localhost:3000/createLesson`, {
       method: "POST", // or 'PUT'
       mode: "cors",

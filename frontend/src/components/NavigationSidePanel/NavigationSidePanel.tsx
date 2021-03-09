@@ -148,7 +148,7 @@ class NavigationSidePanel extends React.Component<Props, State> {
                   <AddIcon />
                 </IconButton>
 
-                <IconButton aria-label="" color="inherit">
+                <IconButton onClick={() => console.log(JSON.stringify(courseStorage.lessons))} aria-label="" color="inherit">
                   <DeleteIcon />
                 </IconButton>
               </Box>

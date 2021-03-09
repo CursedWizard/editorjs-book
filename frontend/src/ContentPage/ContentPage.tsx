@@ -7,6 +7,7 @@ import EditorJsWrapper from "src/components/EditorJsWrapper";
 import {courseStorage} from "src/store/courses";
 import {observer} from "mobx-react";
 import ModalWindow from "src/components/LessonItem/ModalWindow";
+import BottomContentNavigation from "./BottomContentNavigation";
 
 interface State {
 	/**
@@ -53,6 +54,7 @@ class ContentPage extends React.Component<Record<string, never>, State> {
         scrollPos={this.state.scrollPos}
       >
         <EditorJsWrapper />
+        <BottomContentNavigation/>
       </NavigationSidePanel>
       </>
     );

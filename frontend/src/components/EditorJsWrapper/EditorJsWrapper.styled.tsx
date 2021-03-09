@@ -17,7 +17,7 @@ height: 100%;
 }
 
 & * .codex-editor {
-  padding: 0em 1.5em;
+  /* padding: 0em 1.5em; */
   padding-bottom: 1.5em 1.5em;
   margin-top: 60px;
 }

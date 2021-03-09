@@ -3,7 +3,7 @@
     "target": "es6",
     "module": "commonjs",
     "rootDir": "./",
-    "outDir": "./buildBack",
+    "outDir": "./js",
     "esModuleInterop": true,
     "strict": true
   }

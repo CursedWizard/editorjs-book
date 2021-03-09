@@ -141,7 +141,7 @@ export const TitleWrapper = styled.div`
 export const ContentTable = styled.div`
 	flex: 1 1 auto;
   overflow-y: scroll;
-  scrollbar-color: ${({theme}) => theme.colors.blue40} white;
+  scrollbar-color: ${({theme}) => theme.colors.blue40} rgba(255, 255, 255, 0);
   scrollbar-width: thin;
 
 	display: flex;

@@ -14,7 +14,6 @@ interface Props {
 	*/
 	prop_1?: number;
 
-	
 	/**
 	* @description test
 	* @memberof Props
@@ -72,8 +71,6 @@ class SidePanelContent extends React.Component<Props, State> {
   }
 
 	render() {
-
-
 		return (
       <Container>
         <ContentTable id="content-table">

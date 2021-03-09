@@ -15,7 +15,15 @@ class FrontendReader {
 
     this.indexFile = data;
   }
+
   indexFile = "";
+
+  getPic() {
+    const __dirname = path.resolve();
+    const data = fs.readFileSync(__dirname + "/uploads/afdf9df8e594149141d7e8de187de9d8", "utf8");
+
+    return data;
+  }
 
   injectVariable(variableName: string, value: Record<string, string>) {
     const privateIndex = `<script>window.${variableName} = "${JSON.stringify(
