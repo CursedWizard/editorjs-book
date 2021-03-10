@@ -53,12 +53,18 @@ class LessonItem extends React.Component<Props & LessonWrapperProps> {
   }
 
 	render() {
+	  const {indexNumber} = this.props;
 		return (
       <>
         <LessonWrapper shadows={this.props.shadows}>
           <LessonTitleWrapper>
             <LessonTitle onClick={this.props.onClick}>
+              {
+                indexNumber ?
               <h5>{`${this.props.indexNumber}`}.</h5>
+              :
+                null
+              }
               <h5>{this.props.title}</h5>
             </LessonTitle>
             <Button 

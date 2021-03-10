@@ -24,6 +24,7 @@ export type CoursesType = {
   chapterDir?: string;
   scrollPos: number;
   lessons: {
+    index: number;
     title: string;
     price: number;
     extended: boolean;

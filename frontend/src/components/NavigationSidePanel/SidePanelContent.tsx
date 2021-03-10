@@ -81,7 +81,7 @@ class SidePanelContent extends React.Component<Props, State> {
                 key={index}
                 title={lesson.title}
                 extended={lesson.extended}
-                indexNumber={index + 1}
+                indexNumber={lesson.index}
                 price={lesson.price}
                 subLessons={lesson.subLessons}
                 onPurchaseUrl={"/web/theory-courses/math"}
