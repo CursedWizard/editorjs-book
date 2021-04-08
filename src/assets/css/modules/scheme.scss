@@ -1,0 +1,13 @@
+/**
+ * Color scheme variables
+ *
+ * @author: exode <info@exode.ru>
+ */
+
+body[scheme=bright_light] {
+  --test: #ffffff
+}
+
+body[scheme=space_gray] {
+  --test: #000000
+}

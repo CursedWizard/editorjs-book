@@ -1,0 +1,15 @@
+/**
+ * VK UI override root
+ *
+ * @author: exode <info@exode.ru>
+ */
+
+body[scheme=bright_light] {
+  --accent: #3f67e0;
+  --header_tint: #3f67e0;
+  --tabbar_active_icon: #3f67e0;
+}
+
+body[scheme=space_gray] {
+  --accent: #5791d4;
+}

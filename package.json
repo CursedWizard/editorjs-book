@@ -1,26 +1,65 @@
 {
   "name": "my-app",
   "version": "0.1.0",
+  "homepage": "./",
+  "main": "./electron/main.js",
   "private": true,
   "dependencies": {
+    "@bomdi/codebox": "^1.0.10",
+    "@editorjs/checklist": "^1.3.0",
+    "@editorjs/delimiter": "^1.2.0",
+    "@editorjs/editorjs": "^2.19.1",
+    "@editorjs/header": "^2.6.1",
+    "@editorjs/image": "^2.6.0",
+    "@editorjs/inline-code": "^1.3.1",
+    "@editorjs/list": "^1.6.2",
+    "@editorjs/marker": "^1.2.2",
+    "@editorjs/paragraph": "^2.8.0",
+    "@editorjs/simple-image": "^1.4.0",
+    "@editorjs/table": "^1.3.0",
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
+    "@testing-library/dom": "^7.29.6",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "@types/jest": "^26.0.15",
+    "@types/katex": "^0.11.0",
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "animejs": "^3.2.1",
+    "concurrently": "^6.0.1",
+    "editorjs-alert": "^1.0.3",
+    "editorjs-inline-image": "^0.1.1",
+    "editorjs-text-color-plugin": "^1.1.22",
+    "electron": "^12.0.2",
+    "electron-builder": "^22.10.5",
+    "electron-is-dev": "^2.0.0",
+    "katex": "^0.12.0",
+    "mobx": "^6.1.8",
+    "mobx-react": "^7.1.0",
+    "nedb": "^1.8.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-editor-js": "^1.9.0",
+    "react-is": "^17.0.1",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "simple-image-editorjs": "^1.4.0",
+    "styled-components": "^5.2.1",
+    "styled-system": "^5.1.5",
     "typescript": "^4.1.2",
+    "wait-on": "^5.3.0",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
+    "dev": "concurrently \"npm start\" \"wait-on http://localhost:3000 && electron .\"",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "ebuild": "npm run build && node_modules/.bin/build"
   },
   "eslintConfig": {
     "extends": [
@@ -39,5 +78,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/animejs": "^3.1.3",
+    "@types/nedb": "^1.8.11",
+    "@types/styled-components": "^5.1.9",
+    "@types/styled-system": "^5.1.11"
   }
 }

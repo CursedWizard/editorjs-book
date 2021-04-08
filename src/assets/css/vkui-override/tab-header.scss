@@ -1,0 +1,27 @@
+/**
+ * VK UI override tab header panel
+ *
+ * @author: exode <info@exode.ru>
+ */
+
+@import "../modules/gradient";
+@import "../modules/text";
+
+body[scheme=bright_light] {
+
+  .panel-feed__active {
+    @include purple-blue-gradient(-45);
+    @include gradient-text();
+  }
+
+}
+
+body[scheme=space_gray] {
+
+  .panel-feed__active {
+    @include purple-blue-gradient(45, #1353d6);
+    @include gradient-text();
+  }
+
+}
+

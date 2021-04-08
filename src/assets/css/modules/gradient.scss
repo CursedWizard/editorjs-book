@@ -1,0 +1,17 @@
+/**
+ * Gradient scss module
+ *
+ * @author: exode <info@exode.ru>
+ */
+
+@mixin purple-blue-gradient($deg: 45, $blue: #003ebc) {
+  background: linear-gradient(#{$deg}deg, var(--accent), $blue);
+}
+
+.yellow-red-gradient {
+  background: linear-gradient(70deg, #fc2644, #f6913b);
+}
+
+.purple-blue-gradient {
+  @include purple-blue-gradient();
+}

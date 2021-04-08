@@ -1,0 +1,14 @@
+/**
+ * Text scss module
+ *
+ * @author: exode <info@exode.ru>
+ */
+
+@mixin gradient-text() {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-text {
+  @include gradient-text();
+}

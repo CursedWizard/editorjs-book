@@ -1,0 +1,26 @@
+/**
+ * Index css styles import
+ *
+ * @author: exode <info@exode.ru>
+ */
+
+@import "./modules/variables";
+@import "./modules/scheme";
+
+/**
+ * Import modules
+ */
+@import "./modules/common";
+
+@import "./modules/gradient";
+@import "./modules/text";
+
+/**
+ * Import vk ui override
+ */
+@import "./vkui-override/index";
+
+
+
+
+
