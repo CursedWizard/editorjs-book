@@ -2,6 +2,8 @@
 import { makeAutoObservable, makeObservable, observable, action, reaction, computed } from 'mobx'
 import renderMathInElement from 'katex/dist/contrib/auto-render';
 import {CoursesType, getCourseInfo} from '../../services/utils';
+import Database from '../../utils/database';
+import loki from 'lokijs'
 require("katex/dist/katex.css");
 
 class CoursesStore {
@@ -12,8 +14,11 @@ class CoursesStore {
   private infoReceived = false;
   private currentChapterName = "";
   private currentLessonName = "";
+  private testDb!: Database;
+  // private folder = remote.getGlobal('collectionDb');
+
   lessonContent = {};
-  lessons!: CoursesType;
+  lessons!: CoursesType["lessons"];
   modalOpen: boolean = false;
   newContentReceived: boolean = false;
   readOnly: boolean = false;
@@ -62,37 +67,21 @@ class CoursesStore {
     this.isKatexPreview = true;
   }
 
-  updateShit() {
-    fetch(`http://localhost:3000/sync`, {
-      method: "GET", // or 'PUT'
-      mode: "cors"
-    });
-  }
-
-  async getCoursesInfo() {
+  getCoursesInfo() {
     if (this.infoReceived) return;
-    console.log("Receiving new shit");
-    // this.lessons = await getCourseInfo();
-    this.infoReceived = true;
+    this.testDb = new Database("/mnt/progs/dev/web/sw/editor-js-book/vers_2.0_electron/chapters");
+
+    const loaded = () => {
+        this.infoReceived = true;
+        this.lessons = this.testDb.findChapter();
+    };
+
+    this.testDb.loadDatabase(loaded);
   }
 
-  updateLessonContent(content: string) {
-    if (!this.newContentReceived) {
-      this.newContentReceived = true;
-      return;
-    }
-    fetch(`http://localhost:3000/updateLessonContent`, {
-      method: "POST", // or 'PUT'
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        chapterName: this.currentChapterName,
-        lessonName: this.currentLessonName,
-        content: content,
-      }),
-    });
+  getStructure() {
+      const data = this.testDb.findChapter();
+      console.log(data);
   }
 
   takeChapterName(name: string) {
@@ -138,48 +127,19 @@ class CoursesStore {
     else this.modalOpen = !this.modalOpen;
   }
 
-  async syncronizeShit() {
-    await fetch(`http://localhost:3000/syncTable`, {
-      method: "POST", // or 'PUT'
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(this.lessons),
-    });
+  createChapter(chapterName: string) {
+      this.testDb.addChapter(chapterName)
+      this.lessons = this.testDb.findChapter();
   }
 
-  async createChapter(chapterName: string) {
-    this.syncronizeShit();
-    await fetch(`http://localhost:3000/createChapter`, {
-      method: "POST", // or 'PUT'
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        chapterName: chapterName,
-      }),
-    });
-
-    this.lessons = await getCourseInfo();
+  removeAll() {
+      this.testDb.db.removeCollection("users");
+      console.log("Removed the whole collection btw")
   }
 
   async createLesson(lessonName: string) {
-    this.syncronizeShit();
-    await fetch(`http://localhost:3000/createLesson`, {
-      method: "POST", // or 'PUT'
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        chapterName: this.currentChapterName,
-        lessonName: lessonName,
-      }),
-    });
-
-    this.lessons = await getCourseInfo();
+      this.testDb.addLesson(this.currentChapterName, lessonName);
+    // this.lessons = await getCourseInfo();
   }
 }
 

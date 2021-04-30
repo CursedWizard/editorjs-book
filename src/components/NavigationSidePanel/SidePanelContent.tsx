@@ -75,7 +75,7 @@ class SidePanelContent extends React.Component<Props, State> {
       <Container>
         <ContentTable id="content-table">
           {courseStorage.lessons ?
-            courseStorage.lessons.lessons.map((lesson, index) => {
+            courseStorage.lessons.map((lesson, index) => {
             return (
               <LessonItem
                 shadows={false}

@@ -10,6 +10,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications'
 import SyncIcon from '@material-ui/icons/Sync';
 import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
+import AppleIcon from '@material-ui/icons/Apple';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import {Box} from "@material-ui/core";
@@ -90,6 +91,15 @@ class NavigationSidePanel extends React.Component<Props, State> {
     console.log(this.state.scrollPos)
   }
 
+  handleTestDbClick = () => {
+      courseStorage.getStructure();
+      // courseStorage.removeAll();
+  }
+
+  handleCreateChapter = () => {
+      courseStorage.createChapter("Some");
+  }
+
   render() {
     return (
       <Container>
@@ -139,7 +149,7 @@ class NavigationSidePanel extends React.Component<Props, State> {
                 <IconButton
                   aria-label=""
                   color="inherit"
-                  onClick={() => courseStorage.updateShit()}
+                  // onClick={() => courseStorage.updateShit()}
                 >
                   <SyncIcon />
                 </IconButton>
@@ -148,8 +158,12 @@ class NavigationSidePanel extends React.Component<Props, State> {
                   <AddIcon />
                 </IconButton>
 
-                <IconButton onClick={() => console.log(JSON.stringify(courseStorage.lessons))} aria-label="" color="inherit">
+                <IconButton onClick={this.handleTestDbClick} aria-label="" color="inherit">
                   <DeleteIcon />
+                </IconButton>
+
+                <IconButton onClick={this.handleCreateChapter} aria-label="" color="inherit">
+                  <AppleIcon />
                 </IconButton>
               </Box>
             </Toolbar>

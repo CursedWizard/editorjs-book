@@ -41,7 +41,7 @@ class EditorJsWrapper extends React.Component<Props> {
   handleChange = (api: any, newData?: any) => {
     if (!courseStorage.updateContent)
       return;
-    courseStorage.updateLessonContent(newData);
+    // courseStorage.updateLessonContent(newData);
   }
 
 	render() {

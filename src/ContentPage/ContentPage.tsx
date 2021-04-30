@@ -7,6 +7,7 @@ import TwinklingSky from "../components/TwinklingSky";
 import ModalWindow from "../components/LessonItem/ModalWindow";
 import NavigationSidePanel from "../components/NavigationSidePanel";
 import EditorJsWrapper from "../components/EditorJsWrapper";
+import fs from 'fs';
 
 interface State {
 	/**
@@ -32,7 +33,6 @@ class ContentPage extends React.Component<Record<string, never>, State> {
   };
 
   async componentDidMount() {
-
     await courseStorage.getCoursesInfo();
 
     setTimeout(() => {
