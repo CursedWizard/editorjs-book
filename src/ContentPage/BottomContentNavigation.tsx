@@ -5,6 +5,7 @@ import {observer} from "mobx-react";
 import {Box} from "@material-ui/core";
 import ReportIcon from '@material-ui/icons/Report';
 import Button from "../components/Button/Button";
+import {courseStorage} from "../store/courses";
 
 interface State {
 	/**
@@ -32,9 +33,9 @@ class BottomContentNavigation extends React.Component<Record<string, never>, Sta
 
   render() {
     return (
-      <BottomWrapper>
+        <BottomWrapper style={{display: courseStorage.pdfMode ? "none" : "inherit"}}>
         <BottomNavigationContainer>
-          <Button p="12px" variant="neutral">
+            <Button onClick={() => courseStorage.prevLesson()} p="12px" variant="neutral">
             <svg
               width="16"
               height="16"
@@ -58,7 +59,7 @@ class BottomContentNavigation extends React.Component<Record<string, never>, Sta
             Предыдущий
           </Button>
           <Box flexGrow="1" />
-          <Button p="12px" variant="neutral">
+            <Button onClick={() => courseStorage.nextLesson()} p="12px" variant="neutral">
             Следующий
             <svg
               width="16"

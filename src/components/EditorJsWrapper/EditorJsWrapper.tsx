@@ -3,6 +3,7 @@ import * as React from "react";
 import { EditorJsWrapperContainer } from './EditorJsWrapper.styled';
 import EditorJs from "react-editor-js";
 import {observer} from "mobx-react";
+import fs from "fs"
 
 import { EDITOR_JS_TOOLS, data } from "./constants";
 
@@ -41,19 +42,28 @@ class EditorJsWrapper extends React.Component<Props> {
   handleChange = (api: any, newData?: any) => {
     if (!courseStorage.updateContent)
       return;
-    // courseStorage.updateLessonContent(newData);
+    courseStorage.updateArticle(newData);
   }
+
+    handleInitialised = () => {
+        console.log("Initialised")
+        const generatedSource = new XMLSerializer().serializeToString(document);
+        fs.writeFile("./test.html", generatedSource, function (err) {
+            if (err) return console.log(err);
+            console.log('Done saving html to file');
+        });
+    }
 
 	render() {
 		return (
 			<EditorJsWrapperContainer>
-        <EditorJs 
-          enableReInitialize={true}
-          tools={EDITOR_JS_TOOLS as any}
-          data={courseStorage.lessonContent as any}
-          readOnly={courseStorage.readOnly}
-          onChange={this.handleChange}
-        />
+                <EditorJs 
+                    enableReInitialize={true}
+                    tools={EDITOR_JS_TOOLS as any}
+                    data={courseStorage.lessonContent as any}
+                    readOnly={courseStorage.readOnly}
+                    onChange={this.handleChange}
+                />
 			</EditorJsWrapperContainer>
 		);
 	}

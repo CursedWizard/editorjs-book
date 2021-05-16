@@ -38,11 +38,13 @@
     "electron-builder": "^22.10.5",
     "electron-is-dev": "^2.0.0",
     "katex": "^0.12.0",
+    "lodash": "^4.17.21",
     "lokijs": "^1.5.11",
     "mobx": "^6.1.8",
     "mobx-react": "^7.1.0",
     "nedb": "^1.8.0",
     "nedb-electron": "^1.0.1",
+    "puppeteer": "^9.1.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-editor-js": "^1.9.0",
@@ -88,6 +90,7 @@
     "@types/lokijs": "^1.5.4",
     "@types/nedb": "^1.8.11",
     "@types/styled-components": "^5.1.9",
-    "@types/styled-system": "^5.1.11"
+    "@types/styled-system": "^5.1.11",
+    "editorjs-table": "^1.4.10"
   }
 }

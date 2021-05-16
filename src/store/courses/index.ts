@@ -4,6 +4,7 @@ import renderMathInElement from 'katex/dist/contrib/auto-render';
 import {CoursesType, getCourseInfo} from '../../services/utils';
 import Database from '../../utils/database';
 import loki from 'lokijs'
+import { getEmptyLesson } from "./constants"
 require("katex/dist/katex.css");
 
 class CoursesStore {
@@ -15,6 +16,7 @@ class CoursesStore {
   private currentChapterName = "";
   private currentLessonName = "";
   private testDb!: Database;
+  pdfMode = false;
   // private folder = remote.getGlobal('collectionDb');
 
   lessonContent = {};
@@ -25,6 +27,7 @@ class CoursesStore {
   updateContent: boolean = true;
   currentModalEntity: string = "";
   isKatexPreview: boolean = false;
+  waiting = false;
 
   chooseModalEntity(enity: "chapter" | "lesson") {
     this.currentModalEntity = enity as string;
@@ -44,6 +47,8 @@ class CoursesStore {
 
   disableKatexPreviw() {
     this.selectLesson(this.currentChapterName, this.currentLessonName);
+    this.updateContent = true;
+    this.isKatexPreview = false;
   }
 
   enableKatexPreview() {
@@ -67,21 +72,38 @@ class CoursesStore {
     this.isKatexPreview = true;
   }
 
-  getCoursesInfo() {
+  init() {
     if (this.infoReceived) return;
-    this.testDb = new Database("/mnt/progs/dev/web/sw/editor-js-book/vers_2.0_electron/chapters");
+    this.testDb = new Database("./chapters");
 
     const loaded = () => {
         this.infoReceived = true;
-        this.lessons = this.testDb.findChapter();
+        this.lessons = this.testDb.getLessons();
     };
 
     this.testDb.loadDatabase(loaded);
   }
 
-  getStructure() {
-      const data = this.testDb.findChapter();
-      console.log(data);
+  togglePdfMode() {
+      this.pdfMode = !this.pdfMode;
+  }
+
+  getContent() {
+      // this.testDb.findLesson();
+  }
+
+  prevLesson() {
+      const prev_lesson = this.testDb.getNextLesson(this.currentChapterName, this.currentLessonName, -1);
+
+      if (prev_lesson)
+          this.selectLesson(this.currentChapterName, prev_lesson.title)
+  }
+
+  nextLesson() {
+      const next_lesson = this.testDb.getNextLesson(this.currentChapterName, this.currentLessonName, 1);
+
+      if (next_lesson)
+          this.selectLesson(this.currentChapterName, next_lesson.title)
   }
 
   takeChapterName(name: string) {
@@ -89,29 +111,28 @@ class CoursesStore {
     console.log(this.currentChapterName);
   }
 
-  async selectLesson(chapterName: string, lessonName: string) {
-    fetch(`http://localhost:3000/getLessonContent`, {
-      method: "POST", // or 'PUT'
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        chapterName: chapterName,
-        lessonName: lessonName,
-      }),
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        console.log("Success:", result);
-        this.lessonContent = result;
-        this.currentChapterName = chapterName;
-        this.currentLessonName = lessonName;
-        this.newContentReceived = false;
-        this.updateContent = true;
-        this.isKatexPreview = false;
+  selectLesson(chapterName: string, lessonName: string) {
+      // this.testDb.findLesson(chapterName, lessonName);
+      this.currentChapterName = chapterName;
+      this.currentLessonName = lessonName;
 
-      });
+      const id = chapterName + lessonName;
+      const article = this.testDb.getArticle(id);
+      if (!article)
+          {
+              this.testDb.createArticle(id, getEmptyLesson(lessonName));
+              const article = this.testDb.getArticle(id);
+              this.lessonContent = article.data;
+              console.log(article.data);
+          }
+      else
+          this.lessonContent = article.data;
+  }
+
+  updateArticle(data: any) {
+      const id = this.currentChapterName + this.currentLessonName;
+
+      this.testDb.updateArticle(id, data);
   }
 
   isSelected(chapterName: string, lessonName: string) {
@@ -129,7 +150,11 @@ class CoursesStore {
 
   createChapter(chapterName: string) {
       this.testDb.addChapter(chapterName)
-      this.lessons = this.testDb.findChapter();
+      this.updateLessons();
+  }
+
+  updateLessons() {
+      this.lessons = this.testDb.getLessons();
   }
 
   removeAll() {
@@ -137,9 +162,27 @@ class CoursesStore {
       console.log("Removed the whole collection btw")
   }
 
-  async createLesson(lessonName: string) {
-      this.testDb.addLesson(this.currentChapterName, lessonName);
-    // this.lessons = await getCourseInfo();
+  createLesson(lessonName: string) {
+      // this.testDb.addLesson(this.currentChapterName, lessonName);
+      let chapter = this.testDb.findChapter(this.currentChapterName);
+      console.log(chapter)
+      chapter.subLessons.push({
+          title: lessonName,
+          link: "",
+          done: false,
+          locked: false
+      });
+      this.testDb.structure.update(chapter);
+
+      this.updateLessons();
+  }
+
+  updateChapter(chapter_given: any) {
+      let chapter = this.testDb.findChapter(chapter_given.title);
+      chapter.title = chapter_given.title;
+      chapter.extended = chapter_given.extended;
+
+      this.testDb.structure.update(chapter);
   }
 }
 

@@ -6,7 +6,7 @@ import {Box} from "@material-ui/core";
 import {observer} from "mobx-react";
 import {CoursesType} from "../../services/utils";
 import {courseStorage} from "../../store/courses";
-import LessonItem from "../LessonItem";
+import Chapter from "../LessonItem";
 
 interface Props {
 	/**
@@ -57,17 +57,18 @@ class SidePanelContent extends React.Component<Props, State> {
     setTimeout(func, 10);
   }
 
-	componentWillUnmount()
+  componentWillUnmount()
   {
-    console.log("Ok reitring")
-    const el: any = document.querySelector('#content-table');
-    if (el)
-      this.props.onModalUnmount(el.scrollTop)
+      console.log("Ok reitring")
+      const el: any = document.querySelector('#content-table');
+      if (el)
+          this.props.onModalUnmount(el.scrollTop)
   }
 
   handleClick = (lesson: CoursesType["lessons"][0]) => {
     console.log("Clicked")
     lesson.extended = !lesson.extended;
+    courseStorage.updateChapter(lesson);
   }
 
 	render() {
@@ -75,18 +76,18 @@ class SidePanelContent extends React.Component<Props, State> {
       <Container>
         <ContentTable id="content-table">
           {courseStorage.lessons ?
-            courseStorage.lessons.map((lesson, index) => {
+            courseStorage.lessons.map((chapter, index) => {
             return (
-              <LessonItem
+              <Chapter
                 shadows={false}
                 key={index}
-                title={lesson.title}
-                extended={lesson.extended}
-                indexNumber={lesson.index}
-                price={lesson.price}
-                subLessons={lesson.subLessons}
+                title={chapter.title}
+                extended={chapter.extended}
+                indexNumber={chapter.index}
+                price={chapter.price}
+                subLessons={chapter.subLessons}
                 onPurchaseUrl={"/web/theory-courses/math"}
-                onClick={() => this.handleClick(lesson)}
+                onClick={() => this.handleClick(chapter)}
               />
             );
           })

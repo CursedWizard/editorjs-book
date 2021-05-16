@@ -32,8 +32,8 @@ class ContentPage extends React.Component<Record<string, never>, State> {
     scrollPos: 0
   };
 
-  async componentDidMount() {
-    await courseStorage.getCoursesInfo();
+  componentDidMount() {
+    courseStorage.init();
 
     setTimeout(() => {
       this.setState({
@@ -44,7 +44,7 @@ class ContentPage extends React.Component<Record<string, never>, State> {
   }
 
   render() {
-    return this.state.loading ? (
+    return courseStorage.waiting ? (
       <TwinklingSky />
     ) : (
       <>

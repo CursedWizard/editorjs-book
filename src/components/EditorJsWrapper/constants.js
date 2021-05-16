@@ -1,5 +1,5 @@
 // import Embed from "@editorjs/embed";
-import Table from "@editorjs/table";
+// import Table from "@editorjs/table";
 import List from "@editorjs/list";
 // import Warning from "@editorjs/warning";
 // import Code from "@editorjs/code";
@@ -15,6 +15,7 @@ import CheckList from "@editorjs/checklist";
 import Delimiter from "@editorjs/delimiter";
 import InlineCode from "@editorjs/inline-code";
 import InlineImage from 'editorjs-inline-image';
+const Table = require('editorjs-table');
 // import Carousel from 'carousel-editorjs/dist/bundle.js';
 const CodeBox = require('@bomdi/codebox');
 const ColorPlugin = require('editorjs-text-color-plugin');
@@ -50,8 +51,8 @@ export const EDITOR_JS_TOOLS = {
   codeBox: {
       class: CodeBox,
       config: {
-        themeURL: 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/nord.min.css', // Optional
-        themeName: 'nord', // Optional
+        themeURL: 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/atom-one-light.min.css', // Optional
+        themeName: 'atom-one-light', // Optional
         useDefaultTheme: 'light' // Optional. This also determines the background color of the language select drop-down
       }
     },

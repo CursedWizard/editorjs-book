@@ -15,6 +15,10 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import {Box} from "@material-ui/core";
 import {courseStorage} from "../../store/courses";
+import fs from "fs";
+// const { masterToPDF } = require('relaxedjs');
+const path = require('path');
+const { ipcRenderer } = require('electron');
 
 interface Props {
 	/**
@@ -75,6 +79,25 @@ class NavigationSidePanel extends React.Component<Props, State> {
     });
 
   };
+  
+
+    handleInitialised = () => {
+        console.log("Initialised")
+        courseStorage.togglePdfMode();
+        const func = () => {
+            const generatedSource = new XMLSerializer().serializeToString(document);
+            courseStorage.waiting = true;
+            fs.writeFile("./test.html", generatedSource, function (err) {
+                if (err) 
+                    return console.log(err);
+                ipcRenderer.send('request-mainprocess-action', {test: "hey"});
+                courseStorage.togglePdfMode();
+                console.log('Done saving html to file');
+            });
+        }
+        setTimeout(func, 1000)
+        setTimeout(() => courseStorage.waiting = false, 5000)
+    }
 
   handleLessonTitleClick = (index: number) => {
     /* this.state.lessons[index].extended = !this.state.lessons[index].extended; */
@@ -92,7 +115,7 @@ class NavigationSidePanel extends React.Component<Props, State> {
   }
 
   handleTestDbClick = () => {
-      courseStorage.getStructure();
+      // courseStorage.getStructure();
       // courseStorage.removeAll();
   }
 
@@ -109,6 +132,7 @@ class NavigationSidePanel extends React.Component<Props, State> {
           open={this.state.open}
           onClose={this.toggleDrawer(false)}
           onOpen={this.toggleDrawer(true)}
+            style={{display: courseStorage.pdfMode ? "none" : "inherit"}}
         >
           <SidePanelContent
             onCancelClick={this.toggleDrawer(false)}
@@ -117,8 +141,8 @@ class NavigationSidePanel extends React.Component<Props, State> {
             scrollPos={this.state.scrollPos}
           />
         </SwipeableDrawer>
-        <ContentContainer marginShift={this.state.open ? 360 : 0}>
-          <AppBar position="fixed">
+        <ContentContainer marginShift={this.state.open && !courseStorage.pdfMode ? 360 : 0}>
+          <AppBar position="fixed" style={{display: courseStorage.pdfMode ? "none" : "inherit"}}>
             <Toolbar>
               <IconButton
                 color="inherit"
@@ -149,7 +173,7 @@ class NavigationSidePanel extends React.Component<Props, State> {
                 <IconButton
                   aria-label=""
                   color="inherit"
-                  // onClick={() => courseStorage.updateShit()}
+                  onClick={() => this.handleInitialised()}
                 >
                   <SyncIcon />
                 </IconButton>
